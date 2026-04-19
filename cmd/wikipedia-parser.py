@@ -1,7 +1,6 @@
-import os
 import requests
 from bs4 import BeautifulSoup
-
+from utils import check_and_create_result
 
 URL_1 = 'https://www.python.org/'
 URL_2 = 'https://www.wikipedia.org/'
@@ -13,12 +12,9 @@ def main():
     if req.status_code == 200:
         print(req.headers)
         soup = BeautifulSoup(req.content, 'html.parser')
-
         lang_list = soup.find_all('a', class_='link-box')
 
-        result_path = '../results'
-        if not os.path.exists(result_path):
-            os.makedirs(result_path)
+        result_path = check_and_create_result()
 
         with open(f'{result_path}/wikipedia-result.txt', 'w', encoding='utf-8') as f:
             for element in lang_list:
