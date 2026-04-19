@@ -1,3 +1,4 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 
@@ -14,7 +15,12 @@ def main():
         soup = BeautifulSoup(req.content, 'html.parser')
 
         lang_list = soup.find_all('a', class_='link-box')
-        with open('../results/wikipedia-result.txt', 'w', encoding='utf-8') as f:
+
+        result_path = '../results'
+        if not os.path.exists(result_path):
+            os.makedirs(result_path)
+
+        with open(f'{result_path}/wikipedia-result.txt', 'w', encoding='utf-8') as f:
             for element in lang_list:
                 url = f"https:{element['href']}"
                 lang = element.find('strong').text
