@@ -27,7 +27,6 @@ def main():
                 cnt = element.find('small').text
                 print(lang, url, cnt)
                 f.write(f'{url};{lang};{cnt}\n')
-
     else:
         print(f'Ошибка запроса\nStatus Code: {req.status_code}')
 
